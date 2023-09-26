@@ -19,7 +19,9 @@ public class Product {
         return id;
     }
 
-    // no setter because we don't want to accidentally change the identity of an entity
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
