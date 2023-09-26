@@ -1,4 +1,4 @@
-# Exercise 1
+# Exercise 2
 
 ## Base
 - Solution exercise 1: A Spring Boot application that outputs a simple (externally) configurable greeting
