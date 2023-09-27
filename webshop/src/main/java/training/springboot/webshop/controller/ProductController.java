@@ -14,52 +14,44 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import training.springboot.webshop.entity.Product;
-import training.springboot.webshop.persistence.ProductCatalog;
-import training.springboot.webshop.persistence.ProductCatalog.EntityExistingException;
-import training.springboot.webshop.persistence.ProductCatalog.EntityNotFoundException;
+import training.springboot.webshop.persistence.ProductRepository;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
 
     @Autowired
-    ProductCatalog productCatalog;
+    ProductRepository productRepository;
     
     @GetMapping("/{id}")
     public ResponseEntity<Product> get(@PathVariable long id) {
-        try {
-            return new ResponseEntity<Product>(productCatalog.getById(id), HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<Product>(
+            productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Product> post(@RequestBody Product product) {
-        try {
-            Product savedProduct = productCatalog.save(product);
-            return new ResponseEntity<Product>(savedProduct, HttpStatus.CREATED);
-        } catch (EntityExistingException e) {
+        if (productRepository.existsById(product.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "entity with id " + product.getId() + " exists");
         }
+        return new ResponseEntity<Product>(productRepository.save(product), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<Product> update(@RequestBody Product product) {
-        try {
-            return new ResponseEntity<Product>(productCatalog.update(product), HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        if (!productRepository.existsById(product.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<Product>(productRepository.save(product), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> delete(@PathVariable long id) {
-        try {
-            return new ResponseEntity<Product>(productCatalog.delete(id), HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        Product productForDeletion = productRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        productRepository.delete(productForDeletion);
+        return new ResponseEntity<Product>(productForDeletion, HttpStatus.OK);
     }
 
 }
