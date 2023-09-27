@@ -1,4 +1,4 @@
-# Exercise 4
+# Exercise 5
 
 ## Base
 - Solution of exercise 4: A Spring Boot web application with a simple product catalog and a CRUD (Create, Read, Update, Delete) HTTP-API and some API tests
