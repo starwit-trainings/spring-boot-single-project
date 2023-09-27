@@ -2,11 +2,21 @@ package training.springboot.webshop.entity;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private BigDecimal price;
     private String description;
+
+    public Product() {}
 
     public Product(Long id, String name, BigDecimal price, String description) {
         this.id = id;
