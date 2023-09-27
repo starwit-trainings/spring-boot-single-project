@@ -1,20 +1,22 @@
 # Exercise 3
 
 ## Base
-- Solution of exercise 2: A Spring Boot web application with everything in place to start building and API now
-- The `Product` entity already defined (it is used in the dummy endpoint)
+- Solution of exercise 2: A Spring Boot web application with everything in place to start building an API now
+- The `Product` entity (it is used in the dummy endpoint)
+- The `ProductCatalog` (a simple replacement for the persistence layer, that we do not yet want to deal with)
 
 ## Goals
 - Learn how to implement a REST controller (i.e. HTTP endpoint)
 - Learn how to define more beans and how to inject those as dependencies
 
 ## Steps
-- For temporary persistency define a `ProductCatalog` that can hold `Product` objects and reference them by id
+- For temporary persistency there is now a `ProductCatalog` class that can hold `Product` objects and reference them by id
 - Continue implementation for the `ProductController` REST controller
-    - Have the `ProductCatalog` injected, do not instantiate it within `ProductController`
+    - Have the `ProductCatalog` injected with `@Autowired` (do not instantiate it yourself within `ProductController`)
     - Implement `PUT /product/{id}`, `POST /product`, `DELETE /product/{id}`
 - Test your endpoints using curl (curl.exe on Windows) and Insomnia/Postman
 
 ## Hints / Challenges
-- The REST controller annotations do many, many things in the background for our comfort. Can you name a few?
-- Customize the error message and error code that comes back if there is an exception during controller method execution using `ResponseStatusException` or `Controller Advice` (if possible try both)
+- The easiest way for exception handling (transforming an exception that is thrown in the controller into a suitable HTTP status code) is to catch it and rethrow a `ResponseStatusException`
+- The annotations in the REST controller do many, many things in the background for our comfort. Can you name a few examples?
+- Centralize the exception handling using `@ControllerAdvice` (see here for an example: https://www.baeldung.com/exception-handling-for-rest-with-spring#controlleradvice). What are the downsides of that approach?
