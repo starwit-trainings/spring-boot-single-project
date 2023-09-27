@@ -1,7 +1,10 @@
 package training.springboot.webshop.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,6 +56,11 @@ public class ProductController {
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         productRepository.delete(productForDeletion);
         return new ResponseEntity<Product>(productForDeletion, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Product>> getAll() {
+        return new ResponseEntity<List<Product>>(productRepository.findAll(), HttpStatus.OK);
     }
 
 }
