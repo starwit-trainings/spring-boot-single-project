@@ -11,7 +11,7 @@ import training.springboot.webshop.entity.Product;
 public class ProductCatalog {
 
     private Map<Long, Product> productMap = new HashMap<>();
-    private long autoIncrement = 0;
+    private long autoIncrement = 1;
     
     public Product getById(long id) throws EntityNotFoundException {
         Product product = productMap.get(id);
