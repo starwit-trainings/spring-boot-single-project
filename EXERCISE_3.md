@@ -13,7 +13,12 @@
 - For temporary persistency there is now a `ProductCatalog` class that can hold `Product` objects and reference them by id
 - Continue implementation for the `ProductController` REST controller
     - Have the `ProductCatalog` injected with `@Autowired` (do not instantiate it yourself within `ProductController`)
-    - Implement `PUT /product/{id}`, `POST /product`, `DELETE /product/{id}`
+    - Implement `PUT /product`, `POST /product`, `DELETE /product/{id}`
+        - Status codes
+            - GET: 404 if product with id not existing; 200 if found and returned
+            - POST: 201 if created successfully
+            - PUT: 404 if product with id not existing; 200 if updated
+            - DELETE: 404 if product with id not existing; 200 if deleted
 - Test your endpoints using curl (curl.exe on Windows) and Insomnia/Postman
 
 ## Hints / Challenges
