@@ -32,8 +32,9 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> post(@RequestBody Product product) {
-        if (productRepository.existsById(product.getId())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "entity with id " + product.getId() + " exists");
+        if (product.getId() != null) {
+            // Make sure, that the client does not repeat a defective request
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id cannot be set!");
         }
         return new ResponseEntity<Product>(productRepository.save(product), HttpStatus.CREATED);
     }
