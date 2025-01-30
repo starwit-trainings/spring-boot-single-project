@@ -31,4 +31,4 @@
 ## Hints / Challenges
 - Spring Boot has many more available Actuator endpoints that can be enabled (https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints). In a production environment that should be done with caution though!
     - Try it and check out all endpoints: `management.endpoints.web.exposure.include=*`
-- Run your two instances of your application at the same time on different ports
+- Run two instances of your application at the same time on different ports
