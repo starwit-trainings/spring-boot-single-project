@@ -18,7 +18,7 @@
 - Add a test
 - Create a properties file `application-dev.properties` that enables many features you would like to have during development (i.e. Spring Actuator endpoints, Log-Level, etc.)
 - Create a properties file `application-prod.properties` that does nothing for now (maybe change the greeting)
-- Test the `dev` profile by activating it though `spring.profiles.active=dev`
+- Test the `dev` profile by activating it through `spring.profiles.active=dev`
 - Try activating the profile in different ways (environment variable, JVM parameter)
 
 ## Hints / Challenges
