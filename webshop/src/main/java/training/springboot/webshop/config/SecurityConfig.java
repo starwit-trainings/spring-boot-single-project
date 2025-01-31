@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.GET).hasRole("USER")
+                .requestMatchers(HttpMethod.GET).hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
@@ -36,14 +36,14 @@ public class SecurityConfig {
         // The builder will ensure the passwords are encoded before saving in memory
         UserBuilder users = User.withDefaultPasswordEncoder();
         UserDetails user = users
-            .username("customuser")
+            .username("user")
             .password("password")
             .roles("USER")
             .build();
         UserDetails admin = users
             .username("admin")
             .password("password")
-            .roles("USER", "ADMIN")
+            .roles( "ADMIN")
             .build();
         return new InMemoryUserDetailsManager(user, admin);
     }
