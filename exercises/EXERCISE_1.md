@@ -17,7 +17,7 @@
 - Now make (part of) the greeting configurable using the property `greeting.text`
 
 ## Hints
-- Use Maven, Java 17 and Spring Boot 3.1.4
+- Use Maven, Java 21 and the latest stable Spring Boot (i.e. 3.4.2)
 - Maven artifact metadata
     - group: training.spring-boot
     - artifact: webshop
